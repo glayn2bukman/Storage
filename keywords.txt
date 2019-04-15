@@ -1,0 +1,61 @@
+# types
+byte	KEYWORD1
+uint	KEYWORD1
+Storage	KEYWORD1
+ERROR	KEYWORD3
+
+# methods
+readByte	KEYWORD2
+readBytes	KEYWORD2
+readObject	KEYWORD2
+
+writeByte	KEYWORD2
+writeBytes	KEYWORD2
+writeObject	KEYWORD2
+
+byteIs	KEYWORD2
+
+searchAvailable	KEYWORD2
+
+clear	KEYWORD2
+clearSection	KEYWORD2
+
+capacity	KEYWORD2
+
+readUint8_t	KEYWORD2
+readUint16_t	KEYWORD2
+readUint32_t	KEYWORD2
+readUint64_t	KEYWORD2
+
+readBoolean	KEYWORD2
+readBool	KEYWORD2
+readChar	KEYWORD2
+readreadWord	KEYWORD2
+readInt	KEYWORD2
+readLong	KEYWORD2
+readFloat	KEYWORD2
+readDouble	KEYWORD2
+
+
+writeUint8_t	KEYWORD2
+writeUint16_t	KEYWORD2
+writeUint32_t	KEYWORD2
+writeUint64_t	KEYWORD2
+
+writeBoolean	KEYWORD2
+writeBool	KEYWORD2
+writeChar	KEYWORD2
+writeWord	KEYWORD2
+writeInt	KEYWORD2
+writeLong	KEYWORD2
+writeFloat	KEYWORD2
+writeDouble	KEYWORD2
+
+readArray	KEYWORD2
+read2dArray	KEYWORD2
+read3dArray	KEYWORD2
+
+writeArray	KEYWORD2
+write2dArray	KEYWORD2
+write3dArray	KEYWORD2
+
