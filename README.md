@@ -24,6 +24,7 @@ Storage store;
 
 
 <hr>
+
 ##### Non Read/Write commands
 
 ###### `capacity()`
@@ -36,7 +37,7 @@ Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
 All read/write methods set the attribute ```ERROR``` to true/false indicating if an error happened(when ERROR is true) or not
 </sub>
 
-###### byte readByte(const uint pos)
+###### byte readByte(const uint pos);
 Reads a single byte in position. eg 
 ```cpp
     char b;
@@ -48,7 +49,7 @@ Reads a single byte in position. eg
 Reads ```bytes``` bytes into array and returns the bytes read. eg
 ```cpp
     char str[10];
-    if(!store.readBytes(str,8)){/*error occured eg position was out of memory range*/}
+    if(!store.readBytes(str,8,0)){/*error occured eg position was out of memory range*/}
     else{Serial.print("string: "); Serial.print(str);}
 ```
 
