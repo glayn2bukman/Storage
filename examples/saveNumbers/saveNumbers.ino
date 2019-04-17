@@ -11,9 +11,11 @@ int   I=0;
 float F=0.0;
 char  C='\0';
 
+// this offset could be anything but this value was carefully chosen so that the other examples
+// in this library could not be affected
 const uint8_t OFFSET = 17;
-const uint8_t SIGNATURE[] = {12,11};
 
+const uint8_t SIGNATURE[] = {12,11};
 
 Storage store;
 
