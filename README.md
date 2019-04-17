@@ -1,6 +1,7 @@
 # Storage
 Arduino Storage Library(EEPROM abstraction)
 
+
 ### Compatibility
 
 #### All Arduino IDEs should be supported(the library only depends on EEPROM)
@@ -22,9 +23,9 @@ Storage store;
 - The library is called by declaring the```Storage store;``` constructor where 'store' can be replaced by a user constructor of choice.
 
 
+##### Non Read/Write commands
 ###### `capacity()`
 Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
-
 <hr>
 
 ##### Read commands
