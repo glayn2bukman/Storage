@@ -40,36 +40,19 @@ All read/write methods set the attribute ```ERROR``` to true/false indicating if
 Reads a single byte in position. eg 
 ```cpp
     char b;
-    if(b=store.readByte(15), store.ERROR){/*error occured ed position was out of memory range*/}
+    if(b=store.readByte(15), store.ERROR){/*error occured eg position was out of memory range*/}
     else{Serial.print("byte read: "); Serial.print(b);}
 ```
 
-###### readByte(address)
-Reads a _byte_ (unsigned 8 bit value) from a specific location. Takes the address (0-maxAddress) of the byte as an argument.
+###### uint readBytes(byte arr[], uint bytes, uint offset);
+Reads ```bytes``` bytes into array and returns the bytes read. eg
+```cpp
+    char str[10];
+    if(!store.readBytes(str,8)){/*error occured eg position was out of memory range*/}
+    else{Serial.print("string: "); Serial.print(str);}
+```
 
-###### readChar(address)
-Reads a _char_ (signed 8 bit value) from a specific location. Takes the address (0-maxAddress) of the char as an argument.
 
-###### readWord(address)
-Reads a _word_ (unsigned 16 bit value) from a specific location. Takes the address (0-maxAddress) of the word as an argument.
-
-###### readShort(address)
-Reads a _short_ (signed 16 bit value) from a specific location. Takes the address (0-maxAddress) of the short as an argument.
-
-###### readULong(address)
-Reads an _unsigned long_ (unsigned 32 bit value) from a specific location. Takes the address (0-maxAddress) of the unsigned long as an argument.
-
-###### readLong(address)
-Reads a _long_ (signed 32 bit value) from a specific location. Takes the address (0-maxAddress) of the long as an argument.
-
-###### readFloat(address)
-Reads a _float_ (decimal value) from a specific location. Takes the address (0-maxAddress) of the float as an argument.
-
-###### readStr(address, outputStr)
-Reads a _string_ (String Object) from a specific location to an outputStr variable. Takes the address (0-maxAddress) of the String and a String as arguments.
-
-###### readAnything(address, value)
-Reads _any type of variable/struct_ (any sized value) from a specific location. Takes the address (0-maxAddress) of the data and the variable/struct to write the data to, as arguments.
 <hr>
 
 ##### Write commands
