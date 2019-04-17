@@ -25,6 +25,7 @@ Storage store;
 
 <hr>
 ##### Non Read/Write commands
+
 ###### `capacity()`
 Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
 <hr>
@@ -37,7 +38,7 @@ All read/write methods set the attribute ```ERROR``` to true/false indicating if
 
 ###### byte readByte(const uint pos)
 Reads a single byte in position. eg 
-```
+```cpp
     char b;
     if(b=store.readByte(15), store.ERROR){/*error occured ed position was out of memory range*/}
     else{Serial.print("byte read: "); Serial.print(b);}
