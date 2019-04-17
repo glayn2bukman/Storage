@@ -23,6 +23,7 @@ Storage store;
 - The library is called by declaring the```Storage store;``` constructor where 'store' can be replaced by a user constructor of choice.
 
 
+<hr>
 ##### Non Read/Write commands
 ###### `capacity()`
 Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
@@ -34,8 +35,13 @@ Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
 All read/write methods set the attribute ```ERROR``` to true/false indicating if an error happened(when ERROR is true) or not
 </sub>
 
-###### readAnything(address, value)
-Reads _any type of variable/struct_ (any sized value) from a specific location. Takes the address (0-maxAddress) of the data and the variable/struct to write the data back to, as arguments.
+###### byte readByte(const uint pos)
+Reads a single byte in position. eg 
+```
+    char b;
+    if(b=store.readByte(15), store.ERROR){/*error occured ed position was out of memory range*/}
+    else{Serial.print("byte read: "); Serial.print(b);}
+```
 
 ###### readByte(address)
 Reads a _byte_ (unsigned 8 bit value) from a specific location. Takes the address (0-maxAddress) of the byte as an argument.
