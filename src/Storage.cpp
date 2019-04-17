@@ -14,7 +14,7 @@ byte Storage::readByte(const uint pos){
     return EEPROM.read(pos);
 }
 
-uint Storage::readBytes(byte arr[], uint bytes, uint offset=0){
+uint Storage::readBytes(byte arr[], uint bytes, uint offset){
     // this method is NOT safe as it does not check array bounds!
     uint bytes_read = 0;
     for(uint pos=offset; (bytes_read<bytes) && (pos<size); ++pos, ++bytes_read){
@@ -26,7 +26,7 @@ uint Storage::readBytes(byte arr[], uint bytes, uint offset=0){
     return bytes_read;
 }
 
-bool Storage::readObject(void *obj, size_t obj_size, uint offset=0){
+bool Storage::readObject(void *obj, size_t obj_size, uint offset){
     // read any data type from the permanent storage;
     
     if(obj_size>size || ((offset+obj_size)>=size)){ERROR=1; return false;}
@@ -48,8 +48,11 @@ bool Storage::writeByte(const byte b, const uint pos){
 }
 
 
-uint Storage::writeBytes(const byte arr[], uint bytes, uint offset=0){
+uint Storage::writeBytes(const byte arr[], uint bytes, uint offset){
     // this method is NOT safe as it does not check array bounds!
+
+    if((offset+bytes)>=size){ERROR=1; return 0;} // abort if data will go outside memory bounds
+    
     uint bytes_written = 0;
     for(uint pos=offset, arr_pos=0; (bytes_written<bytes) && (pos<size); ++pos, ++arr_pos, ++bytes_written){
         EEPROM.write(pos,arr[arr_pos]);
@@ -59,7 +62,7 @@ uint Storage::writeBytes(const byte arr[], uint bytes, uint offset=0){
     return bytes_written;
 }
 
-bool Storage::writeObject(const void *obj, size_t obj_size, uint offset=0){
+bool Storage::writeObject(const void *obj, size_t obj_size, uint offset){
     if(obj_size>size || ((offset+obj_size)>=size)){ERROR=1; return false;}
     
     if(writeBytes((byte*)obj,obj_size,offset)!=obj_size){ERROR=1; return false;}
@@ -134,7 +137,9 @@ bool Storage::clearSection(const uint start, const uint end){
 }
 
 
-uint Storage::capacity()const{return size;}
+uint Storage::capacity()const{
+    return size;
+}
 
 ////////////////////////////////////////////////READ SPECIFIC TYPES///////////////////////////////////////////////
 
@@ -200,3 +205,24 @@ bool Storage::writeInt(const int value, const uint pos){return writeBytes((byte*
 bool Storage::writeLong(const long value, const uint pos){return writeBytes((byte*)&value,sizeof(value),pos);}
 bool Storage::writeFloat(const float value, const uint pos){return writeBytes((byte*)&value,sizeof(value),pos);}
 bool Storage::writeDouble(const double value, const uint pos){return writeBytes((byte*)&value,sizeof(value),pos);}
+
+bool Storage::readArray(byte *arr, const size_t length, const uint type_size, const uint pos){
+    size_t bytes = length*type_size;
+    
+    return readBytes(arr,bytes,pos);
+}
+bool Storage::writeArray(byte *arr, const size_t length, const uint type_size, const uint pos){
+    size_t bytes = length*type_size;
+
+    writeBytes(arr,bytes,pos);
+    
+    return !ERROR;
+}
+
+bool Storage::readMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos){
+    return readArray(arr,dimensions_product,type_size,pos);
+}
+
+bool Storage::writeMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos){
+    return writeArray(arr,dimensions_product,type_size,pos);
+}
