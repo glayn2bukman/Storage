@@ -384,9 +384,6 @@ void loop() {
 ```cpp
 #include <Storage.h>
 
-#define ROWS (4)
-#define COLS (3)
-
 void setup() {Serial.begin(9600);}
 
 Storage store;
