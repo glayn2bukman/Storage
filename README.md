@@ -13,7 +13,7 @@ Storage store;
 ```
 
 ### Installation
-- Click on the 'Clone or download' button above the list of files on this <a href = "https://github.com/glayn2bukman/Storage/tree/master"> page </a>.
+- Click on the 'Clone or download' button above or click <a href = "https://github.com/glayn2bukman/Storage/archive/master.zip"> here </a>.
 - Select Download ZIP. A .zip file will download to your computer.
 - Unzip the archive and rename resulting folder to 'Storage'
 - Move the folder to your libraries folder (~/sketches/libraries or ~/Arduino/libraries)
