@@ -23,7 +23,7 @@ void loop() {
     // signature is present, we have to load the array from memory...
     Serial.println("signature found, loading array from memory...");
 
-    if(store.readArray(factors, ARRAY_SIZE, sizeof(float), OFFSET+2)){
+    if(store.readArray(factors, ARRAY_SIZE, sizeof(factors[0]), OFFSET+2)){
       Serial.print("done reading array: ");
       for(unsigned int i=0; i<ARRAY_SIZE; ++i){
         Serial.print(factors[i]);
@@ -37,7 +37,7 @@ void loop() {
     Serial.println("signature not found, saving array now...");
 
     // first clear the needed spaces...
-    store.clearSection(OFFSET,OFFSET+2+sizeof(float)*sizeof(factors));
+    store.clearSection(OFFSET,OFFSET+2+sizeof(factors));
     
     // write the signature...
     store.writeByte(SIGNATURE[0], OFFSET);
@@ -45,7 +45,7 @@ void loop() {
 
     float _facs[] = {1.7,2.9,3.6,4.1,2.8};
 
-    if(store.writeArray(_facs, ARRAY_SIZE, sizeof(float), OFFSET+2)){
+    if(store.writeArray(_facs, ARRAY_SIZE, sizeof(_facs[0]), OFFSET+2)){
       Serial.print("done saving array: ");
     }else{
       Serial.println("failed to save array to memory");

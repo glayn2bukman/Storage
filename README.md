@@ -119,7 +119,7 @@ Read array from memory. eg
 #define ARRAY_SIZE (20)
 
 int marks[ARRAY_SIZE];
-if(store.readArray(marks, ARRAY_SIZE, sizeof(int), 80)){
+if(store.readArray(marks, ARRAY_SIZE, sizeof(marks[0]), 80)){
     Serial.print("done reading array: ");
     for(unsigned int i=0; i<ARRAY_SIZE; ++i){
         Serial.print(marks[i]);
@@ -137,7 +137,7 @@ Read multi-dimentional array from memory. eg
 #define COLS (3)
 
 int board[ROWS][COLS]; // 2d array
-if(store.readMultiArray(board, ROWS*COLS, sizeof(int), 50)){
+if(store.readMultiArray(board, ROWS*COLS, sizeof(board[0]), 50)){
     Serial.print("done reading multi-dimensional array:\n");
 }else{
     Serial.println("failed to load multi-dimensional array from memory");
@@ -178,6 +178,31 @@ if(store.readMultiArray(board, ROWS*COLS, sizeof(int), 50)){
 ###### bool writeFloat(const float value, const uint pos);
 
 ###### bool writeDouble(const double value, const uint pos);
+
+###### bool writeArray(void *arr, const size_t length, const uint type_size, const uint pos);
+```cpp
+#define ARRAY_SIZE (5)
+
+float factors[ARRAY_SIZE] = {2,6,3,7,9};
+if(store.writeArray(factors, ARRAY_SIZE, sizeof(factors[0]), 80)){
+    Serial.print("done saving array");
+}else{
+    Serial.println("failed to save array from memory");
+}
+```
+
+###### bool writeMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos);
+```cpp
+#define ROWS (4)
+#define COLS (3)
+
+int board[ROWS][COLS] = {{1,2,3},{4,5,6},{7,8,9},{5,1,3}};
+if(store.writeMultiArray(board, ROWS*COLS, sizeof(board[0]), 50)){
+    Serial.print("done saving multi-dimensional array:\n");
+}else{
+    Serial.println("failed to save multi-dimensional array from memory");
+}
+```
 
 <hr>
 

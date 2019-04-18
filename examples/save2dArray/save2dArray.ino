@@ -9,7 +9,7 @@ Storage store;
 
 // this offset could be anything but this value was carefully chosen so that the other examples
 // in this library could not be affected
-const uint8_t OFFSET = 50;
+const uint8_t OFFSET = 70;
 
 const uint8_t SIGNATURE[] = {15,9};
 
@@ -37,8 +37,7 @@ void loop() {
     // signature is present, we have to load the array from memory...
     Serial.println("signature found, loading array from memory...");
 
-    // storage array methods take a byte* so we cast board to byte*
-    if(store.readMultiArray((byte*)board, ROWS*COLS, sizeof(int), OFFSET+2)){
+    if(store.readMultiArray(board, ROWS*COLS, sizeof(board[0]), OFFSET+2)){
       Serial.print("done reading multi-dimensional array:\n");
       print2dArray(board);
     }else{
@@ -49,7 +48,7 @@ void loop() {
     Serial.println("signature not found, saving array now...");
 
     // first clear the needed spaces...
-    store.clearSection(OFFSET,OFFSET+2+sizeof(int)*sizeof(board));
+    store.clearSection(OFFSET,OFFSET+2+sizeof(board));
     
     // write the signature...
     store.writeByte(SIGNATURE[0], OFFSET);
@@ -57,8 +56,7 @@ void loop() {
 
     int arr[ROWS][COLS] = {{1,2,3},{4,5,6},{7,8,9},{5,1,3}};
 
-    // storage array methods take a byte* so we cast arr to byte*
-    if(store.writeMultiArray((byte*)arr, ROWS*COLS, sizeof(int), OFFSET+2)){
+    if(store.writeMultiArray(arr, ROWS*COLS, sizeof(board[0]), OFFSET+2)){
       Serial.print("done saving multi-dimensional array: ");
     }else{
       Serial.println("failed to save multi-dimensional array to memory");
