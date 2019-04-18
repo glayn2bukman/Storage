@@ -34,35 +34,109 @@ Returns the maximum memory in bytes eg for 1Kb, the method will return 1024
 ##### Read commands
 <hr>
 <sub>
-All read/write methods set the attribute ```ERROR``` to true/false indicating if an error happened(when ERROR is true) or not
+All read/write methods set the attribute ```ERROR``` to true/false indicating if an error happened(when ERROR is true) or not. This is especially usefull for methods that dont return ```bool```
 </sub>
 
 ###### byte readByte(const uint pos);
 Reads a single byte in position. eg 
 ```cpp
-    char b;
-    if(b=store.readByte(15), store.ERROR){/*error occured eg position was out of memory range*/}
-    else{Serial.print("byte read: "); Serial.print(b);}
+char b;
+if(b=store.readByte(15), store.ERROR){/*error occured eg position was out of memory range*/}
+else{Serial.print("byte read: "); Serial.print(b);}
+```
+
+###### bool byteIs(const uint pos, const byte b);
+Checks if the given byte ```b``` is the same as that at index ```pos``` in memory. eg 
+```cpp
+if(store.byteIs(15,'A')){/*byte at index 15 is 'A'*/}
+else{/*error occured*/}
 ```
 
 ###### uint readBytes(byte arr[], uint bytes, uint offset);
 Reads ```bytes``` bytes into array and returns the bytes read. eg
 ```cpp
-    char str[10];
-    if(!store.readBytes(str,8,0)){/*error occured eg position was out of memory range*/}
-    else{Serial.print("string: "); Serial.print(str);}
+char str[10];
+if(!store.readBytes(str,8,0)){/*error occured eg position was out of memory range*/}
+else{Serial.print("string: "); Serial.print(str);}
 ```
 
+###### bool readObject(void *obj, size_t obj_size, uint offset);
+Reads object from memory. eg
+```cpp
+struct {
+  char name[10];
+  int ID;
+} obj;
+
+if(store.readObject(&obj, sizeof(obj), 20)){/*object loaded from memory*/}
+else{/*failed to load object from memory*/}
+```
+
+###### uint8_t readUint8_t(const uint pos);
+read a ```uint8_t``` from index ```pos```. eg 
+```cpp
+uint8_t b;
+if(b=store.readUint8_t(12), !store.ERROR){/*successully read uint8_t at index 12*/}
+else{/*error occured*/}
+```
+
+###### uint16_t readUint16_t(const uint pos);
+
+###### uint32_t readUint32_t(const uint pos);
+
+###### uint64_t readUint64_t(const uint pos);
+
+###### boolean readBoolean(const uint pos);
+
+###### boolean readBool(const uint pos);
+
+###### char readChar(const uint pos);
+
+###### word readWord(const uint pos);
+
+###### int readInt(const uint pos);
+
+###### long readLong(const uint pos);
+
+###### float readFloat(const uint pos);
+
+###### double readDouble(const uint pos);
+
+###### bool readArray(void *arr, const size_t length, const uint type_size, const uint pos);
+Read array from memory. eg
+```cpp
+#define ARRAY_SIZE (20)
+
+int marks[ARRAY_SIZE];
+if(store.readArray(marks, ARRAY_SIZE, sizeof(int), 80)){
+    Serial.print("done reading array: ");
+    for(unsigned int i=0; i<ARRAY_SIZE; ++i){
+        Serial.print(marks[i]);
+        Serial.print(" ");
+    }Serial.print("\n");
+}else{
+    Serial.println("failed to load array from memory");
+}
+```
+
+###### bool readMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos);
+Read multi-dimentional array from memory. eg
+```cpp
+#define ROWS (4)
+#define COLS (3)
+
+int board[ROWS][COLS]; // 2d array
+if(store.readMultiArray(board, ROWS*COLS, sizeof(int), 50)){
+    Serial.print("done reading multi-dimensional array:\n");
+}else{
+    Serial.println("failed to load multi-dimensional array from memory");
+}
+```
 
 <hr>
 
 ##### Write commands
 <hr>
-<sub>
-All write commands take a boolean last argument 'errorCheck'. This argument defaults to TRUE, but when set to FALSE will more than double the writing speed. This however comes at the cost of checking for writing errors. Use with care.
-</sub>
-
-<sub> All write commands only take a 32-bit address variable instead of the optional 16-bit page number & 8-bit offset variables in previous versions of the library (< v3.0.0) </sub>
 
 ###### writeByte(address, data)
 Writes a byte of data to a specific location. Takes the address (0-maxAddress) of data byte and one byte of data as arguments.
