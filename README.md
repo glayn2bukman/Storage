@@ -1,5 +1,5 @@
 # Storage
-Arduino Storage Library(EEPROM abstraction)
+Arduino Permanent Storage Library(EEPROM abstraction)
 
 
 ### Compatibility
