@@ -14,7 +14,7 @@ Storage store;
 
 ### Installation
 - Click <a href = "https://github.com/glayn2bukman/Storage/archive/master.zip"> here </a> to download the zip.
-- In your Arduino IDE, go to "Sketch->Include Library->Add .ZIP library" and select the downloaded zip
+- In your Arduino IDE, go to "**Sketch**->**Include Library**->**Add .ZIP library**" and select the downloaded zip
 - Alternatively, you can;
     - Unzip the archive and rename resulting folder to 'Storage'
     - Move the folder to your libraries folder (~/sketches/libraries or ~/Arduino/libraries)
