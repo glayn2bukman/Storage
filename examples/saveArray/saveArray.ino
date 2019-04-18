@@ -1,4 +1,7 @@
 #include <Storage.h>
+
+#define ARRAY_SIZE (5)
+
 void setup() {Serial.begin(6900);}
 
 Storage store;
@@ -9,7 +12,7 @@ const uint8_t OFFSET = 50;
 
 const uint8_t SIGNATURE[] = {14,17};
 
-float factors[5];
+float factors[ARRAY_SIZE];
 
 void loop() {
   Serial.print("max memory capacity: ");
@@ -20,10 +23,9 @@ void loop() {
     // signature is present, we have to load the array from memory...
     Serial.println("signature found, loading array from memory...");
 
-    // storage array methods take a byte* so we cast factors to byte*
-    if(store.readArray((byte*)factors, sizeof(factors), sizeof(float), OFFSET+2)){
+    if(store.readArray(factors, ARRAY_SIZE, sizeof(float), OFFSET+2)){
       Serial.print("done reading array: ");
-      for(unsigned int i=0; i<5; ++i){
+      for(unsigned int i=0; i<ARRAY_SIZE; ++i){
         Serial.print(factors[i]);
         Serial.print(" ");
       }Serial.print("\n");
@@ -43,8 +45,7 @@ void loop() {
 
     float _facs[] = {1.7,2.9,3.6,4.1,2.8};
 
-    // storage array methods take a byte* so we cast _facs to byte*
-    if(store.writeArray((byte*)_facs, 5, sizeof(float), OFFSET+2)){
+    if(store.writeArray(_facs, ARRAY_SIZE, sizeof(float), OFFSET+2)){
       Serial.print("done saving array: ");
     }else{
       Serial.println("failed to save array to memory");
