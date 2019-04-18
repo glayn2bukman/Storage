@@ -584,3 +584,6 @@ void loop() {
   delay(2000);
 }
 ```
+
+### Bug Reports
+Please report any bugs or issues/concerns/suggested-updates to **glayn2bukman@gmail.com**
