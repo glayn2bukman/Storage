@@ -15,6 +15,8 @@ byte Storage::readByte(const uint pos){
 }
 
 uint Storage::readBytes(byte arr[], uint bytes, uint offset){
+    if((offset+bytes)>=size){ERROR=1;return 0;}
+    
     // this method is NOT safe as it does not check array bounds!
     uint bytes_read = 0;
     for(uint pos=offset; (bytes_read<bytes) && (pos<size); ++pos, ++bytes_read){
@@ -206,23 +208,23 @@ bool Storage::writeLong(const long value, const uint pos){return writeBytes((byt
 bool Storage::writeFloat(const float value, const uint pos){return writeBytes((byte*)&value,sizeof(value),pos);}
 bool Storage::writeDouble(const double value, const uint pos){return writeBytes((byte*)&value,sizeof(value),pos);}
 
-bool Storage::readArray(byte *arr, const size_t length, const uint type_size, const uint pos){
+bool Storage::readArray(void *arr, const size_t length, const uint type_size, const uint pos){
     size_t bytes = length*type_size;
     
-    return readBytes(arr,bytes,pos);
+    return readBytes((byte*)arr,bytes,pos);
 }
-bool Storage::writeArray(byte *arr, const size_t length, const uint type_size, const uint pos){
+bool Storage::writeArray(void *arr, const size_t length, const uint type_size, const uint pos){
     size_t bytes = length*type_size;
 
-    writeBytes(arr,bytes,pos);
+    writeBytes((byte*)arr,bytes,pos);
     
     return !ERROR;
 }
 
-bool Storage::readMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos){
+bool Storage::readMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos){
     return readArray(arr,dimensions_product,type_size,pos);
 }
 
-bool Storage::writeMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos){
+bool Storage::writeMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos){
     return writeArray(arr,dimensions_product,type_size,pos);
 }

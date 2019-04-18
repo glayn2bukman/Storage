@@ -70,16 +70,14 @@ class Storage{
         // carefull when trying to store arrays os pointers, only do this if you understand object serialisation
         // for multidimensional arrays, the concenpt is simple; all arrays are stored in contigous memory
         // hence the multidimensional array can be treated as a byte 1d array whose size is the product of all the
-        // dimesntions multiplied by the type size eg
+        // dimentions multiplied by the type size eg
         //      int A[M][N]; is seen as
         //      byte A[M*N*sizeof(int)];
-        //
-        // NB: when using reading or writting arrays, always cast your array to (byte*)
-        bool readArray(byte *arr, const size_t length, const uint type_size, const uint pos);
-        bool readMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos);
+        bool readArray(void *arr, const size_t length, const uint type_size, const uint pos);
+        bool readMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos);
 
-        bool writeArray(byte *arr, const size_t length, const uint type_size, const uint pos);
-        bool writeMultiArray(byte *arr, const uint dimensions_product, const uint type_size, uint pos);
+        bool writeArray(void *arr, const size_t length, const uint type_size, const uint pos);
+        bool writeMultiArray(void *arr, const uint dimensions_product, const uint type_size, uint pos);
 };
 
 #endif

@@ -52,10 +52,8 @@ writeFloat	KEYWORD2
 writeDouble	KEYWORD2
 
 readArray	KEYWORD2
-read2dArray	KEYWORD2
-read3dArray	KEYWORD2
+readMultiArray	KEYWORD2
 
 writeArray	KEYWORD2
-write2dArray	KEYWORD2
-write3dArray	KEYWORD2
+writeMultiArray	KEYWORD2
 
